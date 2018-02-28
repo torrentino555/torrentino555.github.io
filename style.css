@@ -1,0 +1,20 @@
+h1 {
+  text-align: center;
+}
+
+.d43 {
+  width: 100px; height: 100px;
+  border: 15px solid #497DDD;
+  border-right-color: transparent;
+  border-radius: 50%;
+  border-left-color:transparent;
+  position: relative;}
+.d43:after {
+  content: "";
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  position: absolute; top: calc(50% - 20px); left: calc(50% - 20px);
+  background: -webkit-radial-gradient(#EF7D55, #F24012);
+  background: -o-radial-gradient(#EF7D55, #F24012);
+  background: radial-gradient(#EF7D55, #F24012);
+}
