@@ -4,16 +4,16 @@ class Progess {
         this.angle = Math.PI;
         this.width = window.innerWidth*0.3;
         this.height = window.innerHeight/2;
-        this.radius = Math.min(this.height, this.width)/2 - 12;
+        this.radius = Math.min(this.height, this.width)/2 - 16;
         this.create();
     }
 
     draw() {
         let flag = this.value > 50 ? 1 : 0;
         let x = this.radius * Math.sin(-Math.PI*2*(this.value/100) + this.angle) + this.width/2;
-        let y = this.radius * Math.cos(-Math.PI*2*(this.value/100) + this.angle) + 6;
+        let y = this.radius * Math.cos(-Math.PI*2*(this.value/100) + this.angle) + 8;
         let x1 = (this.radius * Math.sin(this.angle) + this.width/2).toPrecision(7);
-        let y1 = (this.radius * Math.cos(this.angle) + this.radius + 6).toPrecision(7);
+        let y1 = (this.radius * Math.cos(this.angle) + this.radius + 8).toPrecision(7);
         let dx = x.toPrecision(7);
         let dy = (y + this.radius).toPrecision(7);
 
@@ -21,9 +21,9 @@ class Progess {
             <!--<path d="M ${x1} ${y1} L ${dx} ${dy}" stroke="#000000"></path>-->
             <!--<path d="M ${window.innerWidth/4} ${window.innerHeight*0.1} a ${this.radius} ${this.radius} 0 1,1 ${-this.radius} ${this.radius}" stroke="#f8f32b" stroke-width="6px" fill="none"></path>-->
             <path d="M ${x1} ${y1} 
-            A ${this.radius} ${this.radius} 0 ${flag},1 ${dx} ${dy}" stroke="#f8f32b" stroke-width="6px" fill="none"></path>
+            A ${this.radius} ${this.radius} 0 ${flag},1 ${dx} ${dy}" stroke="#ffcc00" stroke-width="8px" fill="none"></path>
             <path d="M ${x1} ${y1} 
-            A ${this.radius} ${this.radius} 0 ${flag ? 0 : 1},0 ${dx} ${dy}" stroke="#a5a5a5" stroke-width="6px" fill="none"></path>`;
+            A ${this.radius} ${this.radius} 0 ${flag ? 0 : 1},0 ${dx} ${dy}" stroke="#bdbdbd" stroke-width="8px" fill="none"></path>`;
     }
 
     create() {
@@ -36,10 +36,10 @@ class Progess {
         document.body.innerHTML = `
         <div class="icon">
             <svg width="${this.width}" height="${this.height}" xmlns="http://www.w3.org/2000/svg">
-            <path d="M ${this.width/2} ${6} 
-            a ${this.radius} ${this.radius} 0 ${flag},1 ${dx} ${dy}" stroke="#f8f32b" stroke-width="6px" fill="none"></path>
-            <path d="M ${this.width/2} ${6} 
-            a ${this.radius} ${this.radius} 0 ${flag ? 0 : 1},0 ${dx} ${dy}" stroke="#a5a5a5" stroke-width="6px" fill="none"></path>
+            <path d="M ${this.width/2} ${8} 
+            a ${this.radius} ${this.radius} 0 ${flag},1 ${dx} ${dy}" stroke="#ffcc00" stroke-width="8px" fill="none"></path>
+            <path d="M ${this.width/2} ${8} 
+            a ${this.radius} ${this.radius} 0 ${flag ? 0 : 1},0 ${dx} ${dy}" stroke="#bdbdbd" stroke-width="8px" fill="none"></path>
             </svg>
         </div>` + document.body.innerHTML;
     }
@@ -64,9 +64,9 @@ function speed(start, time) {
     time %= 2000;
     time /= 1000;
     if (time > 1) {
-        return   (2 - time) * 180 * start / 10000
+        return   (2 - time) * 180 * start / 15000
     } else {
-        return time * 180 * start / 10000;
+        return time * 180 * start / 15000;
     }
 }
 
