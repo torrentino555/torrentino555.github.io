@@ -9,6 +9,21 @@ class Progess {
     }
 
     draw() {
+
+        if (this.value === 0) {
+            console.log("0");
+            document.getElementsByTagName('svg')[0].innerHTML = `
+                <circle r="${this.radius}" cx="${this.width/2}" cy="${this.radius + 8}" fill="none" stroke="#bdbdbd" stroke-width="8px"/>
+            `;
+            return;
+        } else if (this.value === 100) {
+            console.log("100");
+            document.getElementsByTagName('svg')[0].innerHTML = `
+                <circle r="${this.radius}" cx="${this.width/2}" cy="${this.radius + 8}" fill="none" stroke="#ffcc00" stroke-width="8px"/>
+            `;
+            return;
+        }
+
         let flag = this.value > 50 ? 1 : 0;
         let x = this.radius * Math.sin(-Math.PI*2*(this.value/100) + this.angle) + this.width/2;
         let y = this.radius * Math.cos(-Math.PI*2*(this.value/100) + this.angle) + 8;
@@ -48,15 +63,28 @@ class Progess {
 let progress = new Progess();
 
 document.getElementById('value').addEventListener('input', function () {
-    progress.value = this.value;
-    progress.draw();
+    if (this.value > 100) {
+        this.value = '100';
+    } else if (this.value < 0) {
+        this.value = '0';
+    }
+
+    progress.valueAnimation = parseInt(this.value === '' ? 0 : this.value) - progress.value;
+    valueAnimate(parseInt(this.value === '' ? 0 : this.value) - progress.value);
 });
 
 document.getElementById('animation').addEventListener('click', function () {
-    console.log(this.checked);
     progress.animation = this.checked;
     if (this.checked) {
         animate();
+    }
+});
+
+document.getElementById('hide').addEventListener('click', function () {
+    if (this.checked) {
+        document.getElementsByTagName('svg')[0].style.opacity = '0';
+    } else {
+        document.getElementsByTagName('svg')[0].style.opacity = '1';
     }
 });
 
@@ -79,8 +107,6 @@ function animate() {
         let timePassed = time - start;
         prev = time;
 
-        console.log(speed(tick, timePassed));
-
         progress.angle -= speed(tick, timePassed);
         progress.draw();
 
@@ -89,4 +115,32 @@ function animate() {
         }
 
     });
+}
+
+function helper(tick, value) {
+    return (tick/500)*value;
+}
+
+function valueAnimate(value) {
+    let start = performance.now();
+    let prev = start;
+    let finalValue = value + progress.value;
+
+    requestAnimationFrame(function animate(time) {
+        let tick = time - prev;
+        let timePassed = time - start;
+        prev = time;
+
+        let change  = helper(tick, value);
+        if (progress.valueAnimation !== value) {
+            return;
+        } else if (change + progress.value > 100 || change + progress.value < 0 || timePassed >= 500) {
+            progress.value = finalValue;
+            progress.draw();
+        } else {
+            progress.value += change;
+            progress.draw();
+            requestAnimationFrame(animate);
+        }
+    })
 }
