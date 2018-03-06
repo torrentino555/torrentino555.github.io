@@ -1,172 +1,155 @@
 class Progess {
     constructor() {
-        this.value = 40;
+        this.progress = document.querySelector('.progress');
+        this.value = parseInt(document.getElementsByClassName('progress-api__value')[0].value);
         this.angle = Math.PI;
+        this.strokeWidth = 8;
+        this.firstColor = "#ffcc00";
+        this.secondColor = "#bdbdbd";
+
         if (screen.orientation.type === "portrait-primary" || screen.orientation.type === "portrait-secondary") {
-            this.width = window.innerWidth/2;
-            this.height = this.width;
-            this.radius = this.width/2 - 16;
+            this.length = window.innerWidth/4;
+            this.progress.style.marginLeft = (- this.length) + "px";
         } else {
-            this.width = window.innerWidth * 0.3;
-            this.height = window.innerHeight / 2;
-            this.radius = Math.min(this.height, this.width) / 2 - 16;
+            this.length = window.innerHeight/4;
+            this.progress.style.marginTop = (- this.length) + "px";
         }
+
+        this.radius = this.length - this.strokeWidth*2;
+
+        this.addEvent();
+
         this.create();
     }
 
+    addEvent() {
+        window.addEventListener('orientationchange', function () {
+            if (screen.orientation.type === "portrait-primary" || screen.orientation.type === "portrait-secondary") {
+                this.progress.style.marginTop = "0";
+                this.progress.style.marginLeft = (- this.progress.offsetWidth/2) + "px";
+            } else {
+                this.progress.style.marginLeft = "0";
+                this.progress.style.marginTop = (- this.progress.offsetHeight/2) + "px";
+            }
+        }.bind(this));
+    }
+
+    drawCircle(color) {
+        this.svgElement.innerHTML =
+            `<circle r="${this.radius}" cx="${this.length}" cy="${this.radius + this.strokeWidth}" 
+                fill="none" stroke="${color}" stroke-width="${this.strokeWidth}px"/>`;
+    }
+
+    drawCurves(x, y, dx, dy, flag) {
+        this.svgElement.innerHTML =
+            `<path d="M ${x} ${y} 
+            A ${this.radius} ${this.radius} 0 ${flag},1 ${dx} ${dy}" 
+            stroke="${this.firstColor}" stroke-width="${this.strokeWidth}px" fill="none"></path>
+            <path d="M ${x} ${y} 
+            A ${this.radius} ${this.radius} 0 ${1 - flag},0 ${dx} ${dy}" 
+            stroke="${this.secondColor}" stroke-width="${this.strokeWidth}px" fill="none"></path>`;
+    }
+
     draw() {
-        let size = Math.min(this.height, this.width);
         if (this.value === 0) {
-            document.getElementsByTagName('svg')[0].innerHTML = `
-                <circle r="${this.radius}" cx="${size/2}" cy="${this.radius + 8}" fill="none" stroke="#bdbdbd" stroke-width="8px"/>
-            `;
+            this.drawCircle(this.secondColor);
             return;
         } else if (this.value === 100) {
-            document.getElementsByTagName('svg')[0].innerHTML = `
-                <circle r="${this.radius}" cx="${size/2}" cy="${this.radius + 8}" fill="none" stroke="#ffcc00" stroke-width="8px"/>
-            `;
+            this.drawCircle(this.firstColor);
             return;
-
         }
-        let flag = this.value > 50 ? 1 : 0;
-        let x = this.radius * Math.sin(-Math.PI*2*(this.value/100) + this.angle) + size/2;
-        let y = this.radius * Math.cos(-Math.PI*2*(this.value/100) + this.angle) + 8;
-        let x1 = (this.radius * Math.sin(this.angle) + size/2).toPrecision(7);
-        let y1 = (this.radius * Math.cos(this.angle) + this.radius + 8).toPrecision(7);
-        let dx = x.toPrecision(7);
-        let dy = (y + this.radius).toPrecision(7);
+        let x = (this.radius * Math.sin(this.angle) + this.length).toPrecision(7);
+        let y = (this.radius * Math.cos(this.angle) + this.radius + this.strokeWidth).toPrecision(7);
+        let dx = (this.radius * Math.sin(-Math.PI*2*(this.value/100) + this.angle) + this.length).toPrecision(7);
+        let dy = (this.radius * Math.cos(-Math.PI*2*(this.value/100) + this.angle) + this.strokeWidth + this.radius).toPrecision(7);
 
-        document.getElementsByTagName('svg')[0].innerHTML =
-            `<path d="M ${x1} ${y1} 
-            A ${this.radius} ${this.radius} 0 ${flag},1 ${dx} ${dy}" stroke="#ffcc00" stroke-width="8px" fill="none"></path>
-            <path d="M ${x1} ${y1} 
-            A ${this.radius} ${this.radius} 0 ${flag ? 0 : 1},0 ${dx} ${dy}" stroke="#bdbdbd" stroke-width="8px" fill="none"></path>`;
+        this.drawCurves(x, y, dx, dy, this.value > 50 ? 1 : 0);
     }
 
     create() {
-        let flag = this.value > 50 ? 1 : 0;
-        let x = this.radius * Math.sin(-Math.PI*2*(this.value/100) + this.angle);
-        let y = this.radius * Math.cos(-Math.PI*2*(this.value/100) + this.angle);
-        let dx = x.toPrecision(7);
-        let dy = (y + this.radius).toPrecision(7);
-        let size = Math.min(this.height, this.width);
-
         document.getElementsByClassName('progress')[0].innerHTML =
-            `<svg width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">
-            <path d="M ${size/2} ${8} 
-            a ${this.radius} ${this.radius} 0 ${flag},1 ${dx} ${dy}" stroke="#ffcc00" stroke-width="8px" fill="none"></path>
-            <path d="M ${size/2} ${8} 
-            a ${this.radius} ${this.radius} 0 ${flag ? 0 : 1},0 ${dx} ${dy}" stroke="#bdbdbd" stroke-width="8px" fill="none"></path>
-            </svg>`;
-    }
-}
+            `<svg width="${this.length*2}" height="${this.length*2}" xmlns="http://www.w3.org/2000/svg"></svg>`;
+        this.svgElement = document.getElementsByTagName('svg')[0];
 
-let progress = new Progess();
-
-document.getElementsByClassName('progress-api__value')[0].addEventListener('input', function () {
-    if (this.value > 100) {
-        this.value = '100';
-    } else if (this.value < 0) {
-        this.value = '0';
+        this.draw();
     }
 
-    progress.valueAnimation = parseInt(this.value === '' ? 0 : this.value) - progress.value;
-    valueAnimate(parseInt(this.value === '' ? 0 : this.value) - progress.value);
-});
-
-document.getElementsByClassName('progress-api__animation')[0].addEventListener('click', function () {
-    progress.animation = this.checked;
-    if (this.checked) {
-        animate();
-    }
-});
-
-document.getElementsByClassName('progress-api__hide')[0].addEventListener('click', function () {
-    if (this.checked) {
-        document.getElementsByTagName('svg')[0].style.opacity = '0';
-    } else {
-        document.getElementsByTagName('svg')[0].style.opacity = '1';
-    }
-});
-
-function speed(start, time) {
-    time %= 2000;
-    time /= 1000;
-    if (time > 1) {
-        return   (2 - time) * 180 * start / 15000
-    } else {
-        return time * 180 * start / 15000;
-    }
-}
-
-function animate() {
-    let start = performance.now();
-    let prev = start;
-
-    requestAnimationFrame(function animate(time) {
-        let tick = time - prev;
-        let timePassed = time - start;
-        prev = time;
-
-        progress.angle -= speed(tick, timePassed);
-        progress.draw();
-
-        if (progress.animation) {
-            requestAnimationFrame(animate);
+    setMod(mode, state) {
+        if (mode === 'animated') {
+            if (state === 'yes') {
+                this.rotationAnimation();
+            } else if (state === '') {
+                cancelAnimationFrame(this.rotationAnimationId);
+            }
         }
+    }
 
-    });
-}
-
-function helper(tick, value) {
-    return (tick/500)*value;
-}
-
-function valueAnimate(value) {
-    let start = performance.now();
-    let prev = start;
-    let finalValue = value + progress.value;
-
-    requestAnimationFrame(function animate(time) {
-        let tick = time - prev;
-        let timePassed = time - start;
-        prev = time;
-
-        let change  = helper(tick, value);
-        if (progress.valueAnimation !== value) {
+    setValue(value) {
+        if (isNaN(value) || typeof  value !== "number" || value > 100 || value < 0 || value === this.value) {
             return;
-        } else if (change + progress.value > 100 || change + progress.value < 0 || timePassed >= 500) {
-            progress.value = finalValue;
-            progress.draw();
-        } else {
-            progress.value += change;
-            progress.draw();
-            requestAnimationFrame(animate);
         }
-    })
-}
-
-
-let progressApi = document.getElementsByClassName('progress-api')[0];
-let progressElement = document.getElementsByClassName('progress')[0];
-if (screen.orientation.type === "portrait-primary" || screen.orientation.type === "portrait-secondary") {
-    progressApi.style.marginLeft = (- progressApi.offsetWidth/2) + "px";
-    progressElement.style.marginLeft = (- progressElement.offsetWidth/2) + "px";
-} else {
-    progressApi.style.marginTop = (- progressApi.offsetHeight/2) + "px";
-    progressElement.style.marginTop = (- progressElement.offsetHeight/2) + "px";
-}
-
-window.addEventListener('orientationchange', function () {
-    if (screen.orientation.type === "portrait-primary" || screen.orientation.type === "portrait-secondary") {
-        progressApi.style.marginTop = "0";
-        progressElement.style.marginTop = "0";
-        progressApi.style.marginLeft = (- progressApi.offsetWidth/2) + "px";
-        progressElement.style.marginLeft = (- progressElement.offsetWidth/2) + "px";
-    } else {
-        progressApi.style.marginLeft = "0";
-        progressElement.style.marginLeft = "0";
-        progressApi.style.marginTop = (- progressApi.offsetHeight/2) + "px";
-        progressElement.style.marginTop = (- progressElement.offsetHeight/2) + "px";
+        if (this.valueAnimationId === null) {
+            this.valueAnimation(value);
+        } else {
+            cancelAnimationFrame(this.valueAnimationId);
+            this.valueAnimation(value);
+        }
     }
-});
+
+    rotationAnimation() {
+        let start = performance.now();
+        let prev = start;
+
+        this.rotationAnimationId = requestAnimationFrame(function animation(time) {
+            let tick = time - prev;
+            let timePassed = time - start;
+            prev = time;
+
+            this.angle -= offset(tick, timePassed);
+            this.draw();
+
+            this.rotationAnimationId = requestAnimationFrame(animation.bind(this));
+        }.bind(this));
+
+        function offset(tick, timePassed) {
+            const period = 2;
+            const milisecondsPerSecond = 1000;
+
+            timePassed = timePassed/milisecondsPerSecond % period;
+            if (timePassed > period/2) {
+                return   (period - timePassed) * Math.PI * 4 * (tick/milisecondsPerSecond);
+            } else {
+                return timePassed * Math.PI * 4 * (tick/milisecondsPerSecond);
+            }
+        }
+    }
+
+    valueAnimation(finalValue) {
+        let prev = performance.now();
+        let differenceOfValues = finalValue - this.value;
+
+        this.valueAnimationId = requestAnimationFrame(function animation(time) {
+            let tick = time - prev;
+            prev = time;
+
+            const timeAnimation = 500;
+
+            let newValue = (tick/timeAnimation)*differenceOfValues + this.value;
+            if (newValue > 100) {
+                newValue = 100;
+            } else if (newValue < 0) {
+                newValue = 0;
+            }
+
+            if ((differenceOfValues > 0 && newValue >= finalValue) || (differenceOfValues < 0 && newValue <= finalValue)) {
+                this.value = finalValue;
+                this.draw();
+                this.valueAnimationId = null;
+            } else {
+                this.value = newValue;
+                this.draw();
+                this.valueAnimationId = requestAnimationFrame(animation.bind(this));
+            }
+        }.bind(this))
+    }
+}
