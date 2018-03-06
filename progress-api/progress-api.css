@@ -1,20 +1,31 @@
-.progress-api {
-    position: absolute;
-    top: 50vh;
-    left: 60vw;
+@media screen and (orientation:landscape) {
+    .progress-api {
+        position: absolute;
+        top: 50vh;
+        left: 60vw;
+    }
+
 }
 
 .progress-api__value {
-    border-color: black;
-    border-radius: 15px;
-    width: 30px;
-    -moz-appearance: textfield;
-    padding: 5px;
-    text-align: center;
+border-color: black;
+border-radius: 15px;
+width: 30px;
+-moz-appearance: textfield;
+padding: 5px;
+text-align: center;
 }
 
 .font_s {
     font-size: 1.5em;
+}
+
+@media screen and (orientation:portrait) {
+    .progress-api {
+        position: absolute;
+        top: 60vh;
+        left: 50vw;
+    }
 }
 
 .progress-api__value::-webkit-outer-spin-button,

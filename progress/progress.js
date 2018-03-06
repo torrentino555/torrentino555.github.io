@@ -2,9 +2,15 @@ class Progess {
     constructor() {
         this.value = 40;
         this.angle = Math.PI;
-        this.width = window.innerWidth*0.3;
-        this.height = window.innerHeight/2;
-        this.radius = Math.min(this.height, this.width)/2 - 16;
+        if (screen.orientation.type === "portrait-primary" || screen.orientation.type === "portrait-secondary") {
+            this.width = window.innerWidth/2;
+            this.height = this.width;
+            this.radius = this.width/2 - 16;
+        } else {
+            this.width = window.innerWidth * 0.3;
+            this.height = window.innerHeight / 2;
+            this.radius = Math.min(this.height, this.width) / 2 - 16;
+        }
         this.create();
     }
 
@@ -60,6 +66,21 @@ class Progess {
             a ${this.radius} ${this.radius} 0 ${flag ? 0 : 1},0 ${dx} ${dy}" stroke="#bdbdbd" stroke-width="8px" fill="none"></path>
             </svg>`;
     }
+
+    changeOrientation() {
+        this.value = 40;
+        this.angle = Math.PI;
+        if (screen.orientation.type === "portrait-primary" || screen.orientation.type === "portrait-secondary") {
+            this.width = window.innerWidth/2;
+            this.height = this.width;
+            this.radius = this.width/2 - 16;
+        } else {
+            this.width = window.innerWidth * 0.3;
+            this.height = window.innerHeight / 2;
+            this.radius = Math.min(this.height, this.width) / 2 - 16;
+        }
+        this.create();
+    }
 }
 
 let progress = new Progess();
@@ -88,11 +109,6 @@ document.getElementsByClassName('progress-api__hide')[0].addEventListener('click
     } else {
         document.getElementsByTagName('svg')[0].style.opacity = '1';
     }
-});
-
-window.addEventListener('resize', function () {
-    document.getElementsByTagName('svg')[0].remove();
-    progress.resize();
 });
 
 function speed(start, time) {
@@ -156,8 +172,21 @@ function valueAnimate(value) {
 let progressApi = document.getElementsByClassName('progress-api')[0];
 let progressElement = document.getElementsByClassName('progress')[0];
 if (screen.orientation.type === "portrait-primary" || screen.orientation.type === "portrait-secondary") {
+    progressApi.style.marginLeft = (- progressApi.offsetWidth/2) + "px";
     progressElement.style.marginLeft = (- progressElement.offsetWidth/2) + "px";
 } else {
     progressApi.style.marginTop = (- progressApi.offsetHeight/2) + "px";
     progressElement.style.marginTop = (- progressElement.offsetHeight/2) + "px";
 }
+
+window.addEventListener('orientationchange', function () {
+    if (screen.orientation.type === "portrait-primary" || screen.orientation.type === "portrait-secondary") {
+        progressApi.style.marginLeft = (- progressApi.offsetWidth/2) + "px";
+        progressElement.style.marginLeft = (- progressElement.offsetWidth/2) + "px";
+    } else {
+        progressApi.style.marginTop = (- progressApi.offsetHeight/2) + "px";
+        progressElement.style.marginTop = (- progressElement.offsetHeight/2) + "px";
+    }
+    document.getElementsByTagName('svg')[0].remove();
+    progress.changeOrientation();
+});

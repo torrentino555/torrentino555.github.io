@@ -9,7 +9,7 @@
 @media screen and (orientation:portrait) {
     .progress {
         position: absolute;
-        bottom: 55vh;
+        bottom: 52vh;
         left: 50vw;
     }
 }
