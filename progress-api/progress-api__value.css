@@ -1,0 +1,14 @@
+.progress-api__value {
+    border-color: black;
+    border-radius: 15px;
+    width: 30px;
+    -moz-appearance: textfield;
+    padding: 5px;
+    text-align: center;
+}
+
+.progress-api__value::-webkit-outer-spin-button,
+.progress-api__value::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

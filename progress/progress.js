@@ -1,5 +1,5 @@
 class Progess {
-    /**
+    /** @description
      * Создает объект progress.
      * В зависимости от ориентации экрана устанавливаются отступы блока progress и размер круга загрузки.
      * this.length - половина от длины блока progress
@@ -33,7 +33,7 @@ class Progess {
         this.create();
     }
 
-    /**
+    /** @description
      * При изменении ориентации экрана обнуляется старое значение отступа и вычисляется новое, чтобы блок находился по центру по вертикали/горизонтали.
      */
     addEvent() {
@@ -48,7 +48,7 @@ class Progess {
         }.bind(this));
     }
 
-    /**
+    /** @description
      * Функция отрисовывает круг определенного цвета через svg.
      * @param color - цвет круга, рисуемого в блоке svg.
      */
@@ -58,7 +58,7 @@ class Progess {
                 fill="none" stroke="${color}" stroke-width="${this.strokeWidth}px"/>`;
     }
 
-    /**
+    /** @description
      * Функция отрисовывает две дуги цвета this.firstColor и this.secondColor через svg.
      * В конечном счёте эти дуги образуют круг, отображающий процесс загрузки чего-либо.
      * Дуга в svg задается рядом параметров.
@@ -78,7 +78,7 @@ class Progess {
             stroke="${this.secondColor}" stroke-width="${this.strokeWidth}px" fill="none"></path>`;
     }
 
-    /**
+    /** @description
      * Функция с помощью полярных координат вычисляет координаты двух точек на круге, исходя из которых рисуются дуги загрузки
      * функцией drawCurves.
      */
@@ -98,7 +98,7 @@ class Progess {
         this.drawCurves(x, y, dx, dy, this.value > 50 ? 1 : 0);
     }
 
-    /**
+    /** @description
      * Функция создает html элемент svg в блоке progress, исходя из выбранных размеров блока this.length.
      * После этого, запоминается svg элемент и вызывается функция отрисовки дуг.
      */
@@ -110,13 +110,15 @@ class Progess {
         this.draw();
     }
 
-    /**
+    /** @description
      * Изменение состояния анимации блока.
      * При включениии режима анимации, запускается функция rotationAnimation, которая отвечает за анимацию вращения.
      * При выключении режима анимации, отменяется следующий вызов функции анимации в стеке отрисовки браузера.
      *
      * @param mode - выбор устанавливаемого режима:
      * 'animated' - режим анимации
+     * 'hidden' - режим скрытия блока
+     * 'normal' - базовое состояние
      * @param state - устанавливаемое значение для выбранного режима:
      * 'yes' - выполнение выбраного режима
      *  '' - отключение выбранного режима
@@ -128,10 +130,21 @@ class Progess {
             } else if (state === '') {
                 cancelAnimationFrame(this.rotationAnimationId);
             }
+        } else if (mode === 'hidden') {
+            if (state === 'yes') {
+                this.svgElement.style.opacity = '0';
+            } else if (state === '') {
+                this.svgElement.style.opacity = '1';
+            }
+        } else if (mode === 'normal') {
+            if (state === 'yes') {
+                this.angle = Math.PI;
+                this.draw();
+            }
         }
     }
 
-    /**
+    /** @description
      * Изменение значения загрузки объекта.
      * При вызове функции происходит плавное изменение полосы загрузки блока progress.
      *
@@ -153,7 +166,7 @@ class Progess {
         }
     }
 
-    /**
+    /** @description
      * Функция реализует анимацию через рекурсию и команду requestAnimationFrame.
      * Сначала запоминается время начала работы анимации, также значени дублируется в prev для вычислений ниже.
      */
@@ -205,7 +218,7 @@ class Progess {
         }
     }
 
-    /**
+    /** @description
      * Функция плавно в течение 0.5 секунд изменяет старое значени value на новое.
      * Запоминается разность между конечным и текущим значением value, а так же время начала анимации.
      * @param finalValue - конечное значение value
