@@ -1,0 +1,15 @@
+@media screen and (orientation:landscape) {
+    .progress {
+        position: absolute;
+        top: 50vh;
+        right: 50vw;
+    }
+}
+
+@media screen and (orientation:portrait) {
+    .progress {
+        position: absolute;
+        bottom: 55vh;
+        left: 50vw;
+    }
+}

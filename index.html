@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Yandex test</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="reset.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Yandex test</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="progress/progress.css">
+    <link rel="stylesheet" href="progress-api/progress-api.css">
 </head>
 <body>
-<div class="management">
-  <div class="wrapper">
-    <input id="value" type="number" value="40"> <b>Value</b><br>
-    <input id="animation" type="checkbox"> <b>Анимация</b><br>
-    <input id="hide" type="checkbox"> <b>Скрыть</b>
-  </div>
-</div>
-<script src="main.js"></script>
+    <div class="progress"></div>
+    <div class="progress-api">
+        <label><input class="progress-api__value" id="value" type="number" value="40">
+            <span class="font_s">Value</span></label><br>
+        <label class="progress-api__checkbox"><input class="progress-api__animation" type="checkbox"><span></span>
+            Анимация</label><br>
+        <label class="progress-api__checkbox"><input class="progress-api__hide" type="checkbox"><span></span>
+            Скрыть</label><br>
+    </div>
+    <script src="progress/progress.js"></script>
 </body>
 </html>
