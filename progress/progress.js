@@ -14,13 +14,6 @@ class Progess {
         this.create();
     }
 
-    resize() {
-        this.width = window.innerWidth*0.3;
-        this.height = window.innerHeight/2;
-        this.radius = Math.min(this.height, this.width)/2 - 16;
-        this.create();
-    }
-
     draw() {
         let size = Math.min(this.height, this.width);
         if (this.value === 0) {
@@ -51,6 +44,7 @@ class Progess {
     }
 
     create() {
+        console.log(window.innerWidth + " " + window.innerHeight);
         let flag = this.value > 50 ? 1 : 0;
         let x = this.radius * Math.sin(-Math.PI*2*(this.value/100) + this.angle);
         let y = this.radius * Math.cos(-Math.PI*2*(this.value/100) + this.angle);
@@ -180,6 +174,7 @@ if (screen.orientation.type === "portrait-primary" || screen.orientation.type ==
 }
 
 window.addEventListener('orientationchange', function () {
+    console.log("change");
     if (screen.orientation.type === "portrait-primary" || screen.orientation.type === "portrait-secondary") {
         progressApi.style.marginLeft = (- progressApi.offsetWidth/2) + "px";
         progressElement.style.marginLeft = (- progressElement.offsetWidth/2) + "px";
