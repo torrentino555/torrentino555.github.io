@@ -44,7 +44,6 @@ class Progess {
     }
 
     create() {
-        console.log(window.innerWidth + " " + window.innerHeight);
         let flag = this.value > 50 ? 1 : 0;
         let x = this.radius * Math.sin(-Math.PI*2*(this.value/100) + this.angle);
         let y = this.radius * Math.cos(-Math.PI*2*(this.value/100) + this.angle);
@@ -59,33 +58,6 @@ class Progess {
             <path d="M ${size/2} ${8} 
             a ${this.radius} ${this.radius} 0 ${flag ? 0 : 1},0 ${dx} ${dy}" stroke="#bdbdbd" stroke-width="8px" fill="none"></path>
             </svg>`;
-    }
-
-    changeOrientation() {
-        this.value = 40;
-        this.angle = Math.PI;
-        if (screen.orientation.type === "portrait-primary" || screen.orientation.type === "portrait-secondary") {
-            if (window.innerWidth < window.innerHeight) {
-                this.width = window.innerWidth/2;
-                this.height = this.width;
-                this.radius = this.width/2 - 16;
-            } else {
-                this.width = window.innerHeight/2;
-                this.height = this.width;
-                this.radius = this.width/2 - 16;
-            }
-        } else {
-            if (window.innerWidth > window.innerHeight) {
-                this.width = window.innerWidth * 0.3;
-                this.height = window.innerHeight / 2;
-                this.radius = Math.min(this.height, this.width) / 2 - 16;
-            } else {
-                this.width = window.innerHeight * 0.3;
-                this.height = window.innerWidth / 2;
-                this.radius = Math.min(this.height, this.width) / 2 - 16;
-            }
-        }
-        this.create();
     }
 }
 
@@ -186,7 +158,6 @@ if (screen.orientation.type === "portrait-primary" || screen.orientation.type ==
 }
 
 window.addEventListener('orientationchange', function () {
-    console.log("change");
     if (screen.orientation.type === "portrait-primary" || screen.orientation.type === "portrait-secondary") {
         progressApi.style.marginTop = "0";
         progressElement.style.marginTop = "0";
@@ -198,6 +169,4 @@ window.addEventListener('orientationchange', function () {
         progressApi.style.marginTop = (- progressApi.offsetHeight/2) + "px";
         progressElement.style.marginTop = (- progressElement.offsetHeight/2) + "px";
     }
-    document.getElementsByTagName('svg')[0].remove();
-    progress.changeOrientation();
 });
