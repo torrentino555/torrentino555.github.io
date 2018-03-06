@@ -65,13 +65,25 @@ class Progess {
         this.value = 40;
         this.angle = Math.PI;
         if (screen.orientation.type === "portrait-primary" || screen.orientation.type === "portrait-secondary") {
-            this.width = window.innerWidth/2;
-            this.height = this.width;
-            this.radius = this.width/2 - 16;
+            if (window.innerWidth < window.innerHeight) {
+                this.width = window.innerWidth/2;
+                this.height = this.width;
+                this.radius = this.width/2 - 16;
+            } else {
+                this.width = window.innerHeight/2;
+                this.height = this.width;
+                this.radius = this.width/2 - 16;
+            }
         } else {
-            this.width = window.innerWidth * 0.3;
-            this.height = window.innerHeight / 2;
-            this.radius = Math.min(this.height, this.width) / 2 - 16;
+            if (window.innerWidth > window.innerHeight) {
+                this.width = window.innerWidth * 0.3;
+                this.height = window.innerHeight / 2;
+                this.radius = Math.min(this.height, this.width) / 2 - 16;
+            } else {
+                this.width = window.innerHeight * 0.3;
+                this.height = window.innerWidth / 2;
+                this.radius = Math.min(this.height, this.width) / 2 - 16;
+            }
         }
         this.create();
     }
@@ -176,9 +188,13 @@ if (screen.orientation.type === "portrait-primary" || screen.orientation.type ==
 window.addEventListener('orientationchange', function () {
     console.log("change");
     if (screen.orientation.type === "portrait-primary" || screen.orientation.type === "portrait-secondary") {
+        progressApi.style.marginTop = "0";
+        progressElement.style.marginTop = "0";
         progressApi.style.marginLeft = (- progressApi.offsetWidth/2) + "px";
         progressElement.style.marginLeft = (- progressElement.offsetWidth/2) + "px";
     } else {
+        progressApi.style.marginLeft = "0";
+        progressElement.style.marginLeft = "0";
         progressApi.style.marginTop = (- progressApi.offsetHeight/2) + "px";
         progressElement.style.marginTop = (- progressElement.offsetHeight/2) + "px";
     }
