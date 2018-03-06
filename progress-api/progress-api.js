@@ -1,4 +1,12 @@
 class ProgressApi {
+    /**
+     * Создает объект ProgressApi.
+     * Запоминаются нужные html объекты.
+     * В зависимости от ориентации эркана, присваевается отрицательный margin для выравнивания объекта по горизонтали/вертикали.
+     *
+     * Далее добавляются обработчки событий через функцию addEvents.
+     * @constructor
+     */
     constructor() {
         this.progressApi = document.querySelector('.progress-api');
         this.value = document.querySelector('.progress-api__value');
@@ -15,7 +23,15 @@ class ProgressApi {
         this.addEvents();
     }
 
+    /**
+     * Функция добавляет обработчики событий для всех элементов блока progress-api.
+     */
     addEvents() {
+        /**
+         * Добавляется обработчик на input, отвечающий за value. Не допускается выставление значений
+         * input больше, чем 100 и меньше, чем 0.
+         * В случае пустой строки объект progress отрисовывается с value = 0;
+         */
         this.value.addEventListener('input', function () {
             if (this.value > 100) {
                 this.value = '100';
@@ -25,10 +41,16 @@ class ProgressApi {
             progress.setValue(parseInt(this.value === '' ? 0 : this.value));
         });
 
+        /**
+         * Добавляется обработчик на checkbox, отвечающий за анимацию объекта progress.
+         */
         this.animation.addEventListener('click', function () {
             progress.setMod('animated', this.checked ? 'yes' : '');
         });
 
+        /**
+         * Добавляется обработчик на checkbox, отвечающий за скрытие объекта
+         */
         this.hide.addEventListener('click', function (hide) {
             if (hide.checked) {
                 this.svg.style.opacity = '0';
@@ -37,6 +59,10 @@ class ProgressApi {
             }
         }.bind(this, this.hide));
 
+        /**
+         * Добавляется обработчик смены ориентации экрана, который обнуляет старое значение margin и устанавливает
+         * новое, для выравнивания блока по горизонтали/вертикали по центру.
+         */
         window.addEventListener('orientationchange', function () {
             if (screen.orientation.type === "portrait-primary" || screen.orientation.type === "portrait-secondary") {
                 this.progressApi.style.marginTop = "0";
@@ -48,3 +74,5 @@ class ProgressApi {
         }.bind(this));
     }
 }
+
+let progressApi = new ProgressApi();
