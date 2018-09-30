@@ -26,6 +26,7 @@ body, html, textarea {
 
 body, html, textarea, p {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-weight: bold;
     font-size: 12pt;
     -webkit-text-size-adjust: none;
 }
@@ -47,6 +48,10 @@ body {
 }
 
 a, a:hover, a:visited {
+    color: #000000;
+}
+
+.header-phone a, a:hover, a:visited {
     color: #d2108c;
 }
 
@@ -142,21 +147,18 @@ header {
     padding: 50px 30px;
 }
 
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
 header, footer, .content-wrapper, nav ul {
     color: #000000;
 }
 
 header .header-logo {
-    background: url(resource/img/logo-header.jpg) no-repeat;
-    width: 417px;
-}
-
-header .header-logo, header .header-contacts {
-    height: 308px;
-}
-
-.header-contacts {
-    float: right;
+    background: url(resource/img/eks-logo.png) no-repeat;
+    width: 400px;
 }
 
 .header-info {
