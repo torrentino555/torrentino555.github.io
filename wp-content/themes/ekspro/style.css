@@ -145,6 +145,7 @@ header {
 .header-wrapper {
     display: flex;
     justify-content: space-between;
+    padding-bottom: 0;
 }
 
 header, footer, .content-wrapper, nav ul {
@@ -153,9 +154,10 @@ header, footer, .content-wrapper, nav ul {
 
 header .header-logo {
     background: url(resource/img/eks-logo.png) no-repeat;
-    width: 500px;
+    width: 386px;
     background-position: 0 -10px;
     background-size: 100%;
+    height: 123px;
 }
 
 .header-addresses {
