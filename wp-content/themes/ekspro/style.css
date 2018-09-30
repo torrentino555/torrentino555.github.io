@@ -153,8 +153,9 @@ header, footer, .content-wrapper, nav ul {
 
 header .header-logo {
     background: url(resource/img/eks-logo.png) no-repeat;
-    width: 400px;
+    width: 500px;
     background-position: 0 -10px;
+    background-size: 100%;
 }
 
 .header-addresses {
