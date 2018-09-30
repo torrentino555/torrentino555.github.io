@@ -154,6 +154,11 @@ header, footer, .content-wrapper, nav ul {
 header .header-logo {
     background: url(resource/img/eks-logo.png) no-repeat;
     width: 400px;
+    background-position: 0 -10px;
+}
+
+.header-addresses {
+    line-height: 1.5;
 }
 
 .header-info {
