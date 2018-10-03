@@ -682,12 +682,22 @@ footer {
 .footer-contacts {
 }
 
-.button-call-now {
-    position: fixed;
-    right: 85px;
-    bottom: 35%;
-    z-index: 500;
+.button-call-a, .button-call-a-left {
+  color: #d2108c;
+  font-size: 26px;
+  text-align: center;
+  position: fixed;
+  right: 85px;
+  bottom: 35%;
+  z-index: 500;
+}
 
+.button-call-a-left {
+  left: 85px;
+  width: 80px;
+}
+
+.button-call-now, .button-call-now-left {
     width: 80px;
     height: 80px;
     max-width: 80px;
@@ -705,6 +715,10 @@ footer {
 
     transition: all 0.8s ease-out;
     animation: shake 0.8s ease both infinite;
+}
+
+.button-call-now-left {
+  animation: shake-left 0.8s ease both infinite;
 }
 
 
@@ -726,6 +740,28 @@ footer {
     }
 }
 
+@keyframes shake-left {
+    0%, 100% {
+      transform: rotate(180deg);
+    }
+
+    10%, 90% {
+        transform: rotate(175deg);
+    }
+
+    20%, 80% {
+        transform: rotate(170deg);
+    }
+
+    30%, 50%, 70% {
+        transform: rotate(180deg);
+    }
+
+    40%, 60% {
+        transform: rotate(160deg);
+    }
+}
+
 .message-box {
     display: block;
 
@@ -740,15 +776,6 @@ footer {
 .message-box > span {
     display: inline-block;
     padding-bottom: 25px;
-}
-
-.button-call-now > a {
-    display: block;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
 }
 
 .icon-metro {
@@ -789,11 +816,11 @@ footer {
 }
 
 .bg-icon-whatsapp {
-    background-image: url('resource/img/icon-whatsapp.png');
+    background-image: url('resource/img/icon-whatsapp.png') !important;
 }
 
 .bg-icon-viber {
-    background-image: url('resource/img/icon-viber.png');
+    background-image: url('resource/img/icon-viber.png') !important;
 }
 
 .bg-icon-telegram {
@@ -883,4 +910,14 @@ footer {
 
 .right {
     float: right;
+}
+
+
+.buttons-link {
+  padding-left: 60px;
+  background: no-repeat left center;
+  background-size: 50px;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
 }
