@@ -71,6 +71,7 @@ h2 { margin: 10px 0 }
 
 .wrapper {
     min-height: 100vh;
+    min-width: 1290px;
 
     display:flex;
     flex-direction: column;
