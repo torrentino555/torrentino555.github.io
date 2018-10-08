@@ -212,49 +212,9 @@ header, footer, .content-wrapper {
     font-size: 1em;
 }
 
-nav ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    overflow: hidden;
-}
-
-nav ul li {
-    float: left;
-    width: 16.666667%;
-    box-sizing: border-box;
-
-    display: block;
-    margin: 0;
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-nav ul li a {
-    -webkit-transition: ease 0.2s;
-    -moz-transition: ease 0.2s;
-    -ms-transition: ease 0.2s;
-    -o-transition: ease 0.2s;
-    transition: ease 0.2s;
-}
-
-nav ul li a {
-    box-sizing: border-box;
-    display: block;
-    text-decoration: none;
-    width: 100%;
-    padding: 15px;
-}
-
-nav ul li a:hover {
-    background: rgba(210, 15, 140, 1);
-    text-decoration: none;
-}
-
 .content-wrapper {
     position: relative;
-    padding: 50px 0;
+    padding-bottom: 30px;
 }
 
 .gradient-line {
@@ -310,84 +270,6 @@ nav ul li a:hover {
     text-transform: uppercase;
     margin: 30px auto;
     width: 80%;
-}
-
-.content-service-block-wrapper ul {
-    padding: 0;
-}
-
-.content-service-block a {
-    display: block;
-    width: 100%;
-    height: 100%;
-}
-
-.content-service-barber, .content-service-nail,
-.content-service-cosmetic, .content-service-epilation,
-.content-service-men, .content-service-special {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.content-service-block.content-service-block-66 {
-    width: 66%;
-}
-
-.content-service-block.content-service-block-66:nth-child(odd) {
-    margin-right: 0;
-}
-
-.content-service-barber {
-    background-image: url('resource/img/content/pic-barber.png')
-}
-
-.content-service-nail {
-    background-image: url('resource/img/content/pic-nail.png')
-}
-
-.content-service-cosmetic {
-    background-image: url('resource/img/content/pic-cosmetic.png')
-}
-
-.content-service-epilation {
-    background-image: url('resource/img/content/pic-epilation.png')
-}
-
-.content-service-men {
-    background-image: url('resource/img/content/pic-men.png')
-}
-
-.content-service-special {
-    background-image: url('resource/img/content/pic-special-66.png')
-}
-
-.content-services .content-service-block:nth-child(3n) {
-    margin-right: 0;
-}
-
-.content-services .content-service-block:nth-child(3n-2) {
-    margin-left: 0;
-}
-
-.content-services .content-service-block:nth-child(-n+3) {
-    margin-top: 0;
-}
-
-.content-services .content-service-block:nth-child(n+4) {
-    margin-bottom: 0;
-}
-
-.content-service-block {
-    display: block;
-    float: left;
-    box-sizing: border-box;
-    width: 32%;
-}
-
-.content-service-block {
-    margin: 1% 1%;
-    height: 200px;
 }
 
 .content-staff h1 {
