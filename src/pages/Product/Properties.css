@@ -1,0 +1,16 @@
+.properties {
+    padding: 30px;
+    background-color: white;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.properties__header {
+    font-size: 22px;
+    margin: 0;
+}
+
+.properties__list-item {
+    font-size: 14px;
+    line-height: 1.5;
+}

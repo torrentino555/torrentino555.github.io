@@ -1,0 +1,10 @@
+.products {
+}
+
+.products-item {
+    background: white;
+    margin-top: 20px;
+    box-shadow: 0 6px 6px #00000030;
+    border-radius: 90px;
+    margin-bottom: 50px;
+}

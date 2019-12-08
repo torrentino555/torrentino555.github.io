@@ -1,0 +1,10 @@
+.button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    user-select: none;
+}
+.button:focus {
+    outline: none;
+}

@@ -1,0 +1,13 @@
+.stars .icon {
+    width: 25px;
+    height: 25px;
+    margin-right: 4px;
+}
+
+.stars .icon-fill {
+    fill: #E9041E;
+}
+
+.stars-white .icon-fill {
+    fill: white;
+}

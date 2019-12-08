@@ -1,0 +1,25 @@
+.upload-file {
+    width: 300px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.upload-file__input {
+    display: none;
+}
+
+.upload-file__label {
+    margin-top: 20px;
+    width: 30px;
+    height: 30px;
+    background-image: url(../../images/icons/upload.svg);
+    transition: opacity 1s;
+}
+
+.upload-file__label_hide {
+    opacity: 0;
+}
